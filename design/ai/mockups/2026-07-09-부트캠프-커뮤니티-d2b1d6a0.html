@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>부트캠프 커뮤니티 · 모바일 목업</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;background:#f5f7fb;color:#111;line-height:1.4}
+.wrap{max-width:1240px;margin:0 auto;padding:12px}
+.topbar{background:#0f172a;color:#e5f7ff;border-radius:12px;padding:8px 12px;font-size:12px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.topbar span{opacity:.86}
+.topbar strong{font-weight:600;margin-right:6px}
+.tag-s{font-size:11px;border-radius:999px;padding:2px 8px;border:1px solid rgba(148,163,184,.7);color:#e2e8f0}
+.hdr{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:10px}
+.hdr-l{font-size:15px;font-weight:600;color:#0f172a}
+.hdr-l span{display:block;font-size:11px;font-weight:500;color:#6b7280}
+.hdr-r{font-size:11px;color:#6b7280}
+.hdr-r b{color:#0f766e}
+.sc{display:flex;gap:12px;align-items:flex-start;justify-content:center;flex-wrap:wrap}
+.ph{flex:0 0 360px;max-width:100%;height:720px;background:#fff;border-radius:32px;border:1px solid #dbe2ee;box-shadow:0 14px 35px rgba(15,23,42,.12);padding:10px 10px 14px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.sts{position:absolute;left:16px;top:12px;font-size:10px;font-weight:600;color:#64748b;background:rgba(148,163,184,.1);border-radius:999px;padding:2px 8px;border:1px solid rgba(148,163,184,.45);backdrop-filter:blur(6px);z-index:4}
+.ab{padding:18px 4px 12px;display:flex;align-items:center;justify-content:space-between}
+.ab-l{display:flex;align-items:center;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;background:#0d9488;box-shadow:0 0 0 4px rgba(13,148,136,.13)}
+.ttl{font-size:16px;font-weight:700;color:#020617}
+.ttl span{display:block;font-size:11px;font-weight:500;color:#6b7280}
+.ab-r{display:flex;align-items:center;gap:6px;font-size:11px;color:#0f172a}
+.ab-btn{border-radius:999px;border:1px solid #e2e8f0;padding:4px 8px;display:flex;align-items:center;gap:4px;font-size:11px;color:#0f172a;background:#f8fafc}
+.ab-svg{width:12px;height:12px}
+.bdg{font-size:10px;border-radius:999px;padding:2px 6px;background:rgba(59,130,246,.08);color:#1d4ed8}
+.ct{flex:1;overflow:hidden;border-radius:22px;background:#f8fafc;padding:2px}
+.scr{height:100%;overflow:auto;padding:10px 10px 14px}
+.scr::-webkit-scrollbar{width:4px}
+.scr::-webkit-scrollbar-thumb{background:rgba(148,163,184,.5);border-radius:999px}
+.sec-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.sec-t{font-size:13px;font-weight:600;color:#020617}
+.sec-sub{font-size:11px;color:#6b7280}
+.chip-row{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.chip{font-size:11px;border-radius:999px;padding:4px 8px;border:1px solid #e2e8f0;background:#fff;color:#334155}
+.chip.on{border-color:#0f766e;background:#ecfeff;color:#0f766e;font-weight:600}
+.chip.g{background:#eff6ff;border-color:rgba(148,163,184,.7);color:#1d4ed8}
+.card{border-radius:16px;border:1px solid #e2e8f0;background:#fff;padding:10px 10px 9px;margin-bottom:10px;box-shadow:0 1px 3px rgba(15,23,42,.04)}
+.card-h{display:flex;justify-content:space-between;margin-bottom:4px}
+.card-l{font-size:12px}
+.card-bdg{display:inline-flex;align-items:center;font-size:10px;border-radius:999px;padding:2px 6px;background:#ecfeff;color:#0f766e;margin-right:4px}
+.card-ttl{font-weight:600;color:#020617}
+.card-meta{font-size:11px;color:#9ca3af;margin-bottom:6px}
+.card-meta span{margin-right:6px}
+.card-txt{font-size:12px;color:#4b5563;margin-bottom:8px}
+.card-ft{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:#6b7280}
+.badge-s{display:inline-flex;align-items:center;border-radius:999px;padding:2px 6px;font-size:10px;border:1px solid #fee2e2;color:#b91c1c;background:#fef2f2}
+.stat{display:flex;align-items:center;gap:12px}
+.ic-row{display:flex;align-items:center;gap:4px}
+.ic-dot{width:6px;height:6px;border-radius:50%;background:#cbd5f5}
+.ic-num{font-weight:500}
+.lg{border-radius:16px;border:1px dashed #cbd5f5;background:linear-gradient(135deg,#f9fafb,#e0f2fe);padding:10px;margin-bottom:10px;font-size:11px;color:#0f172a}
+.lg span{display:block;font-size:10px;color:#64748b;margin-top:4px}
+.lg strong{color:#0f766e}
+.em{border-radius:16px;border:1px dashed #cbd5f5;background:#f9fafb;padding:10px;margin-bottom:10px;font-size:11px;color:#6b7280}
+.em strong{display:block;font-size:12px;color:#0f172a;margin-bottom:4px}
+.em-alt{border-style:solid;border-color:#fee2e2;background:#fef2f2;color:#b91c1c}
+.sk{border-radius:14px;border:1px solid #e5e7eb;background:linear-gradient(90deg,#f3f4f6 0,#e5e7eb 40%,#f3f4f6 100%);background-size:200% 100%;height:54px;margin-bottom:8px;animation:sh 1.1s linear infinite}
+@keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.bn{position:relative;border-radius:16px;border:1px solid #fee2e2;background:#fef2f2;color:#b91c1c;font-size:11px;padding:8px 26px 8px 8px;margin-bottom:8px}
+.bn span{font-weight:600;margin-right:4px}
+.bn-rt{position:absolute;right:8px;top:6px;font-size:10px;color:#b91c1c;text-decoration:underline}
+.d-ttl{font-size:15px;font-weight:700;color:#020617;margin-bottom:6px}
+.d-meta{font-size:11px;color:#6b7280;margin-bottom:8px}
+.d-meta span{margin-right:6px}
+.d-tag{display:inline-flex;align-items:center;border-radius:999px;padding:3px 8px;font-size:10px;border:1px solid #bae6fd;background:#eff6ff;color:#0369a1;margin-right:4px;margin-bottom:6px}
+.d-body{font-size:13px;color:#111827;margin-bottom:10px}
+.d-body p{margin-bottom:6px}
+.d-body ul{padding-left:16px;font-size:12px}
+.d-body li{margin-bottom:3px;color:#4b5563}
+.d-sec{margin-bottom:10px}
+.d-sec-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.d-sec-h span{font-size:12px;font-weight:600;color:#020617}
+.d-sec-h small{font-size:11px;color:#6b7280}
+.cmt{border-radius:12px;border:1px solid #e5e7eb;background:#fff;padding:7px 8px;margin-bottom:6px}
+.cmt-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;font-size:11px}
+.cmt-name{font-weight:600;color:#0f172a}
+.cmt-role{font-size:10px;border-radius:999px;padding:1px 6px;background:#ecfeff;color:#0f766e;border:1px solid #a5f3fc}
+.cmt-txt{font-size:12px;color:#4b5563;margin-bottom:4px}
+.cmt-ft{display:flex;align-items:center;justify-content:space-between;font-size:10px;color:#9ca3af}
+.inp-wrap{margin-bottom:8px}
+.inp-lbl{font-size:11px;font-weight:600;color:#020617;margin-bottom:4px;display:flex;align-items:center;justify-content:space-between}
+.req{color:#ef4444;margin-left:2px;font-size:11px}
+.inp{width:100%;border-radius:12px;border:1px solid #dbe2ee;padding:8px 10px;font-size:12px;outline:none;background:#fff}
+.inp:focus{border-color:#0ea5e9;box-shadow:0 0 0 1px rgba(14,165,233,.2)}
+.ta{min-height:96px;resize:none}
+.help{font-size:10px;color:#9ca3af;margin-top:3px;display:flex;justify-content:space-between}
+.help strong{color:#0f766e}
+.chip-g{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
+.chip-g .chip{font-size:10px;padding:2px 7px}
+.err{font-size:10px;color:#b91c1c;margin-top:3px}
+.cta-row{display:flex;gap:6px;margin-top:6px}
+.btn{flex:1;border-radius:999px;padding:9px 0;font-size:13px;font-weight:600;border:none;cursor:default}
+.btn-p{background:linear-gradient(135deg,#0ea5e9,#0f766e);color:#ecfeff;box-shadow:0 10px 18px rgba(14,165,233,.35)}
+.btn-o{background:#fff;border:1px solid #cbd5f5;color:#0f172a}
+.btn-d{background:#e2e8f0;color:#94a3b8}
+.btn-sm{flex:0 0 auto;padding:7px 10px;font-size:11px;font-weight:500}
+.sts-row{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
+.st-pill{border-radius:999px;padding:3px 7px;font-size:10px;border:1px solid #e5e7eb;background:#f9fafb;color:#6b7280}
+.st-pill.ok{border-color:#bbf7d0;background:#f0fdf4;color:#16a34a}
+.st-pill.err{border-color:#fecaca;background:#fef2f2;color:#b91c1c}
+.st-pill.empty{border-style:dashed}
+.bnav{border-radius:18px;background:#0f172a;padding:6px 12px 10px;display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.bnav-it{flex:1;text-align:center;font-size:10px;color:#94a3b8;display:flex;flex-direction:column;align-items:center;gap:3px}
+.bnav-it span{font-size:10px}
+.bnav-it.on{color:#e0f2fe}
+.bnav-ic{width:18px;height:18px;border-radius:999px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(148,163,184,.5);background:rgba(15,23,42,.85)}
+.bnav-it.on .bnav-ic{border-color:#22d3ee;background:radial-gradient(circle,#22d3ee 0,#0f172a 60%)}
+.bnav-ic svg{width:11px;height:11px;stroke:#cbd5f5}
+.bnav-it.on svg{stroke:#e0f2fe}
+@media(max-width:1120px){.sc{justify-content:flex-start}}
+@media(max-width:960px){.sc{flex-direction:column;align-items:center}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="topbar"><span><strong>시안 미리보기 · 목업 데이터 · 실 배포 X</strong>현재 화면은 팀 워크숍용 고정 시안입니다.</span><span class="tag-s">부트캠프 커뮤니티 · 모바일 3화면</span></div>
+<div class="hdr">
+<div class="hdr-l">부트캠프 커뮤니티
+<span>안 A · SaaS 톤 + 안 B · 커뮤니티 톤을 한 화면에 비교 확인</span>
+</div>
+<div class="hdr-r">상태 예시: <b>기본 · 빈 · 로딩 · 에러</b></div>
+</div>
+<div class="sc">
+<!-- Home / Feed -->
+<div class="ph">
+<div class="sts">메인 피드 · 기본/빈/로딩/에러</div>
+<div class="ab">
+<div class="ab-l">
+<div class="dot"></div>
+<div class="ttl">부트캠프 커뮤니티<span>동기들과 성장 로그를 공유하세요</span></div>
+</div>
+<div class="ab-r">
+<div class="ab-btn">
+<svg class="ab-svg" viewBox="0 0 16 16" fill="none">
+<circle cx="8" cy="8" r="6" stroke="#0f172a" stroke-width="1.1"/>
+<path d="M8 5.2v3.3M8 10.6h.01" stroke="#0f172a" stroke-width="1.1" stroke-linecap="round"/>
+</svg>
+가이드
+</div>
+<span class="bdg">팀 워크숍</span>
+</div>
+</div>
+<div class="ct">
+<div class="scr">
+<div class="sec-h">
+<div>
+<div class="sec-t">오늘의 피드<span style="font-size:11px;color:#0f766e;margin-left:6px">안 A · SaaS 톤</span></div>
+<div class="sec-sub">온보딩 이후 사용자가 가장 먼저 보는 기본 상태</div>
+</div>
+<div style="font-size:10px;color:#9ca3af">실시간 업데이트 2분 전</div>
+</div>
+<div class="chip-row">
+<div class="chip on">전체</div>
+<div class="chip">스터디 후기</div>
+<div class="chip">프로젝트 회고</div>
+<div class="chip">질문 · Q&amp;A</div>
+<div class="chip g">내 수강중 코스</div>
+</div>
+
+<div class="card">
+<div class="card-h">
+<div class="card-l">
+<span class="card-bdg">오늘의 인기</span>
+<span class="card-ttl">2주 차 회고 · 체화된 건 딱 한 가지</span>
+</div>
+<span style="font-size:11px;color:#0f766e">+37 👍</span>
+</div>
+<div class="card-meta">
+<span>프론트엔드 5기 · 이가은</span>
+<span>23분 전</span>
+</div>
+<div class="card-txt">매일 과제를 따라가기만 해도 벅찼는데, 오늘 처음으로 스스로 리팩터링 포인트를 발견해봤어요. 특히 상태 분리 관점에서…</div>
+<div class="card-ft">
+<div class="stat">
+<div class="ic-row">
+<div class="ic-dot"></div><span class="ic-num">댓글 14</span>
+</div>
+<div class="ic-row">
+<div class="ic-dot"></div><span class="ic-num">북마크 21</span>
+</div>
+</div>
+<span class="badge-s">멘토 피드백 포함</span>
+</div>
+</div>
+
+<div class="card">
+<div class="card-h">
+<div class="card-l">
+<span class="card-bdg" style="background:#ecfdf5;color:#16a34a">실시간 질문</span>
+<span class="card-ttl">리액트 커스텀 훅 네이밍 규칙 어떻게 가져가시나요?</span>
+</div>
+</div>
+<div class="card-meta">
+<span>웹 풀스택 3기 · 김민수</span>
+<span>지금</span>
+</div>
+<div class="card-txt">팀 과제에서 폼 제출 로직을 훅으로 뺐는데, validate/useSubmit/useForm 등 이름이 뒤섞여서 리뷰받고 싶어요.</div>
+<div class="card-ft">
+<div class="stat">
+<div class="ic-row"><div class="ic-dot"></div><span class="ic-num">답변 3</span></div>
+<div class="ic-row"><div class="ic-dot"></div><span class="ic-num">열람 42</span></div>
+</div>
+<span style="font-size:10px;color:#0f766e">멘토 1명 답변 중</span>
+</div>
+</div>
+
+<div class="lg">
+<strong>로딩 상태 · 첫 진입 시</strong>
+<span>실제 API 로딩 동안, 2~3개의 스켈레톤 카드와 짧은 안내 문구를 노출합니다.</span>
+<div style="margin-top:8px">
+<div class="sk"></div>
+<div class="sk"></div>
+</div>
+</div>
+
+<div class="em">
+<strong>빈 상태 · 아직 올라온 글이 없을 때</strong>
+이번 트랙에서 올라온 글이 아직 없습니다.
+<br>가벼운 회고 글 하나를 올려 보면서, 동기들에게 먼저 대화의 물꼬를 열어보세요.
+<div class="chip-row" style="margin-top:6px">
+<div class="chip">#첫회고</div>
+<div class="chip">#스스로소개</div>
+<div class="chip">#오늘배운한가지</div>
+</div>
+</div>
+
+<div class="bn">
+<span>피드 로딩 실패</span>네트워크 연결을 확인한 뒤 새로고침을 시도해주세요.
+<button style="border:none;background:transparent;font-size:10px;color:#b91c1c;text-decoration:underline;padding:0;margin-left:4px">다시 시도</button>
+<div class="bn-rt">에러 상태 예시</div>
+</div>
+
+<div class="em em-alt">
+<strong>에러 상태 · 필터링 실패</strong>
+선택한 필터 조합에서 데이터를 불러오지 못했습니다.
+<br>필터를 초기화하거나, 잠시 후 다시 시도해주세요.
+</div>
+
+<div class="em" style="margin-bottom:2px">
+<strong>안 B · 커뮤니티 톤 미리보기</strong>
+동기들과 솔직하게 이야기 나누고 싶은 주제를 골라 보세요.
+<div class="chip-row" style="margin-top:4px">
+<div class="chip on">요즘 힘든 점</div>
+<div class="chip">오늘의 러닝 포인트</div>
+<div class="chip">스터디 모집</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bnav">
+<div class="bnav-it on">
+<div class="bnav-ic">
+<svg viewBox="0 0 16 16" fill="none">
+<path d="M2.5 7.5 8 2.5l5.5 5v5H9.2v-3H6.8v3H2.5v-5z" stroke-width="1.3" stroke-linejoin="round"/>
+</svg>
+</div>
+<span>피드</span>
+</div>
+<div class="bnav-it">
+<div class="bnav-ic">
+<svg viewBox="0 0 16 16" fill="none">
+<circle cx="5.2" cy="5.2" r="2.2" stroke-width="1.2"/><circle cx="10.8" cy="10.8" r="2.2" stroke-width="1.2"/>
+<path d="M7.2 7.2 8.7 8.7" stroke-width="1.1" stroke-linecap="round"/>
+</svg>
+</div>
+<span>탐색</span>
+</div>
+<div class="bnav-it">
+<div class="bnav-ic">
+<svg viewBox="0 0 16 16" fill="none">
+<rect x="3" y="3" width="10" height="10" rx="2.2" stroke-width="1.2"/>
+<path d="M5 8h6M8 5v6" stroke-width="1.2" stroke-linecap="round"/>
+</svg>
+</div>
+<span>글쓰기</span>
+</div>
+<div class="bnav-it">
+<div class="bnav-ic">
+<svg viewBox="0 0 16 16" fill="none">
+<circle cx="8" cy="6" r="2.5" stroke-width="1.2"/>
+<path d="M3.5 12.3c.7-1.4 2.1-2.3 3.7-2.3h1.6c1.6 0 3 .9 3.7 2.3" stroke-width="1.2" stroke-linecap="round"/>
+</svg>
+</div>
+<span>마이</span>
+</div>
+</div>
+</div>
+
+<!-- Detail -->
+<div class="ph">
+<div class="sts">글 상세 · 기본/댓글/에러</div>
+<div class="ab">
+<div class="ab-l">
+<div class="dot" style="background:#0ea5e9;box-shadow:0 0 0 4px rgba(14,165,233,.18)"></div>
+<div class="ttl">글 상세 &amp; 코멘트<span>학습 맥락과 피드백을 한 화면에서</span></div>
+</div>
+<div class="ab-r">
+<div class="ab-btn">
+<svg class="ab-svg" viewBox="0 0 16 16" fill="none">
+<path d="M3.8 4.2h8.4M3.8 8h8.4M3.8 11.8h5.4" stroke="#0f172a" stroke-width="1.2" stroke-linecap="round"/>
+</svg>
+정렬
+</div>
+</div>
+</div>
+<div class="ct">
+<div class="scr">
+<div class="bn" style="margin-top:2px">
+<span>임시저장 복구</span>이전 세션에서 작성 중이던 글이 있습니다. 이어서 보시겠어요?
+<button style="border:none;background:transparent;font-size:10px;color:#0f172a;text-decoration:underline;padding:0;margin-left:4px">임시저장 열기</button>
+<div class="bn-rt" style="color:#0f172a">상태: 알림</div>
+</div>
+
+<div class="d-ttl">[주간 회고] 3주 차 · 모르는 걸 빠르게 인정하는 법</div>
+<div class="d-meta">
+<span>프론트엔드 5기 · 이가은</span>
+<span>2026.07.08 · 조회 182</span>
+</div>
+<div>
+<span class="d-tag">#부트캠프회고</span>
+<span class="d-tag">#피어러닝</span>
+<span class="d-tag">#멘탈관리</span>
+</div>
+
+<div class="d-body">
+<p>이번 주에는 특히 "모르는 걸 모른다고 말하는 용기"를 많이 연습했습니다. 이전에는 리뷰 시간에 질문을 최대한 숨기려다 보니, 결국 더 큰 빚으로 돌아오더라고요.</p>
+<p>그래서 아래 세 가지 작은 실험을 해봤습니다.</p>
+<ul>
+<li>PR 본문에 <strong>"이 부분이 특히 헷갈렸습니다"</strong> 섹션을 따로 추가하기</li>
+<li>데일리 스탠드업에서 최소 1개의 "실패 공유"를 의도적으로 꺼내기</li>
+<li>질문을 정리할 때, <strong>배경 / 시도 / 막힌 지점</strong>을 같이 적어보기</li>
+</ul>
+<p>그 결과, 리뷰 시간이 훨씬 짧아졌고, 동기들 질문에도 자연스럽게 더 도움이 될 수 있었습니다. 아직은 어색하지만, "완성된 나"가 아니라 "과정 중인 나"를 보여주는 연습을 더 이어가 보려고 해요.</p>
+</div>
+
+<div class="d-sec">
+<div class="d-sec-h">
+<span>댓글 5개</span>
+<small>안 B · 커뮤니티 톤: 공감/대화 중심</small>
+</div>
+
+<div class="cmt">
+<div class="cmt-h">
+<div>
+<span class="cmt-name">김민수</span>
+<span style="font-size:10px;color:#9ca3af;margin-left:4px">웹 풀스택 3기</span>
+</div>
+<span style="font-size:10px;color:#9ca3af">5분 전</span>
+</div>
+<div class="cmt-txt">"실패 공유" 세션 아이디어 좋네요. 혹시 팀에서 처음 도입할 때 어색함은 어떻게 넘기셨나요?</div>
+<div class="cmt-ft">
+<span>공감 7 · 답글 2</span>
+<a style="font-size:10px;color:#0f766e;text-decoration:none" href="#">답글 달기</a>
+</div>
+</div>
+
+<div class="cmt">
+<div class="cmt-h">
+<div>
+<span class="cmt-name">최다인</span>
+<span class="cmt-role">멘토</span>
+</div>
+<span style="font-size:10px;color:#9ca3af">12분 전</span>
+</div>
+<div class="cmt-txt">PR 본문 구조가 정말 좋습니다. 다음에는 "이 PR에서 집중 받고 싶은 피드백" 항목도 추가해 보시면 좋아요.</div>
+<div class="cmt-ft">
+<span>멘토 코멘트</span>
+<a style="font-size:10px;color:#0f766e;text-decoration:none" href="#">멘토 피드백 더 보기</a>
+</div>
+</div>
+
+<div class="cmt">
+<div class="cmt-h">
+<div>
+<span class="cmt-name">박소영</span>
+<span style="font-size:10px;color:#9ca3af;margin-left:4px">데이터 2기</span>
+</div>
+<span style="font-size:10px;color:#9ca3af">27분 전</span>
+</div>
+<div class="cmt-txt">"과정 중인 나"라는 표현이 와닿아요. 덕분에 회고 쓸 때 기준이 조금 낮아졌달까요. 공유 감사합니다 :)</div>
+<div class="cmt-ft">
+<span>공감 12</span>
+<span style="font-size:10px;color:#0f172a">저장됨</span>
+</div>
+</div>
+
+<div class="em" style="margin-top:4px">
+<strong>빈 상태 · 아직 댓글이 없을 때</strong>
+"읽고 있다"는 한 줄만 남겨도 큰 힘이 됩니다.
+<br>공감이 되었다면 간단한 응원이나 질문을 남겨보세요.
+</div>
+
+<div class="bn">
+<span>댓글 전송 실패</span>일시적인 오류로 댓글을 저장하지 못했습니다.
+<div class="bn-rt">에러 상태 · 재시도 CTA</div>
+</div>
+</div>
+
+<div class="d-sec">
+<div class="d-sec-h">
+<span>빠른 코멘트 작성</span>
+<small>엔터: 줄바꿈 · ⌘+Enter: 등록</small>
+</div>
+<div class="inp-wrap">
+<textarea class="inp ta" placeholder="예: 오늘 배운 포인트와 느낀 점을 짧게 남겨주세요."></textarea>
+<div class="help">
+<span>안 A · SaaS 톤: 구조화된 가이드</span>
+<span>0/500자</span>
+</div>
+</div>
+<div class="cta-row">
+<button class="btn btn-o btn-sm">임시저장</button>
+<button class="btn btn-p">댓글 등록</button>
+</div>
+<div class="sts-row">
+<div class="st-pill ok">상태: 자동저장 완료 · 1분 전</div>
+<div class="st-pill empty">가이드: 실명/욕설/개인 정보는 자동 숨김 처리됩니다.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bnav">
+<div class="bnav-it">
+<div class="bnav-ic">
+<svg viewBox="0 0 16 16" fill="none">
+<path d="M2.5 7.5 8 2.5l5.5 5v5H9.2v-3H6.8v3H2.5v-5z" stroke-width="1.3" stroke-linejoin="round"/>
+</svg>
+</div>
+<span>피드</span>
+</div>
+<div class="bnav-it on">
+<div class="bnav-ic">
+<svg viewBox="0 0 16 16" fill="none">
+<circle cx="8" cy="8" r="3.4" stroke-width="1.2"/>
+<path d="M4 12.4c.9-.9 2.3-1.4 4-1.4 1.7 0 3.1.5 4 1.4" stroke-width="1.2" stroke-linecap="round"/>
+</svg>
+</div>
+<span>상세</span>
+</div>
+<div class="bnav-it">
+<div class="bnav-ic">
+<svg viewBox="0 0 16 16" fill="none">
+<rect x="3" y="3" width="10" height="10" rx="2.2" stroke-width="1.2"/>
+<path d="M5 8h6M8 5v6" stroke-width="1.2" stroke-linecap="round"/>
+</svg>
+</div>
+<span>글쓰기</span>
+</div>
+<div class="bnav-it">
+<div class="bnav-ic">
+<svg viewBox="0 0 16 16" fill="none">
+<circle cx="8" cy="6" r="2.5" stroke-width="1.2"/>
+<path d="M3.5 12.3c.7-1.4 2.1-2.3 3.7-2.3h1.6c1.6 0 3 .9 3.7 2.3" stroke-width="1.2" stroke-linecap="round"/>
+</svg>
+</div>
+<span>마이</span>
+</div>
+</div>
+</div>
+
+<!-- Create / Post -->
+<div class="ph">
+<div class="sts">글쓰기 · 기본/검증/에러/로딩</div>
+<div class="ab">
+<div class="ab-l">
+<div class="dot" style="background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.16)"></div>
+<div class="ttl">새 글 작성<span>한 주의 배움을 짧게 기록해 보세요</span></div>
+</div>
+<div class="ab-r">
+<div class="ab-btn">
+<svg class="ab-svg" viewBox="0 0 16 16" fill="none">
+<path d="M3.4 4.5h9.2M3.4 8h5.2M3.4 11.5h3.2" stroke="#0f172a" stroke-width="1.1" stroke-linecap="round"/>
+</svg>
+템플릿
+</div>
+</div>
+</div>
+<div class="ct">
+<div class="scr">
+<div class="sec-h">
+<div>
+<div class="sec-t">주간 회고 작성</div>
+<div class="sec-sub">안 A: 구조화된 회고 · 안 B: 가벼운 소셜 톤</div>
+</div>
+<div style="font-size:10px;color:#16a34a">자동저장 ON</div>
+</div>
+
+<div class="inp-wrap">
+<div class="inp-lbl">카테고리<span class="req">*</span></div>
+<div class="chip-row">
+<div class="chip on">주간 회고</div>
+<div class="chip">실시간 질문</div>
+<div class="chip">프로젝트 로그</div>
+<div class="chip">스터디 모집</div>
+</div>
+<div class="help">
+<span>안 A · SaaS 톤: 명확한 카테고리 선택</span>
+<span>필수 선택</span>
+</div>
+</div>
+
+<div class="inp-wrap">
+<div class="inp-lbl">제목<span class="req">*</span></div>
+<input class="inp" value="[3주 차 회고] 코드보다 중요한 것들" />
+<div class="help">
+<span>Tip: "[주차] + 한 줄 요약" 형식을 추천드려요.</span>
+<span>27/60자</span>
+</div>
+</div>
+
+<div class="inp-wrap">
+<div class="inp-lbl">
+내용<span class="req">*</span>
+<span style="font-size:10px;color:#0f766e">안 B · 커뮤니티 톤: 말하듯 편하게 적어도 좋아요</span>
+</div>
+<textarea class="inp ta" placeholder="이번 주에 새로 깨달은 점이나, 팀과 나누고 싶은 경험을 적어주세요.">
+이번 주에 스스로 가장 칭찬해주고 싶은 지점은 무엇인가요?
+
+- 매일 코드 리뷰를 요청하기로 한 약속, 얼마나 지켰나요?
+- 막혔을 때 혼자 붙잡고 있던 시간은 어느 정도였나요?
+- 동기에게 먼저 도움을 요청해본 순간이 있었나요?
+
+간단하게라도 bullet point로 적어보면, 다음 주 목표를 세우기가 훨씬 쉬워집니다 :)</textarea>
+<div class="help">
+<span><strong>가이드</strong> 안 A: 구조화된 질문 / 안 B: 감정·맥락 공유</span>
+<span>297/1000자</span>
+</div>
+</div>
+
+<div class="inp-wrap">
+<div class="inp-lbl">공개 범위</div>
+<div class="chip-row">
+<div class="chip on">트랙 전체 공개</div>
+<div class="chip">내 코호트만</div>
+<div class="chip">나만 보기</div>
+</div>
+<div class="help">
+<span>민감한 내용은 "내 코호트만"으로 공유해 보세요.</span>
+</div>
+</div>
+
+<div class="inp-wrap">
+<div class="inp-lbl">태그</div>
+<input class="inp" placeholder="예: #리액트, #회고, #멘탈관리" />
+<div class="chip-g">
+<div class="chip">#오늘배운한가지</div>
+<div class="chip">#실전피드백</div>
+<div class="chip">#팀프로젝트</div>
+<div class="chip">#야간학습</div>
+</div>
+</div>
+
+<div class="inp-wrap">
+<div class="inp-lbl">상태 예시</div>
+<div class="sts-row">
+<div class="st-pill ok">기본: 제목/내용 모두 입력됨</div>
+<div class="st-pill empty">빈: 필수값 미입력 시 CTA 비활성</div>
+<div class="st-pill">로딩: 등록 중 · 버튼에 스피너 노출</div>
+<div class="st-pill err">에러: 저장 실패 · 상단 배너 + 필드별 메시지</div>
+</div>
+</div>
+
+<div class="err">제목은 10자 이상, 60자 이하로 작성해주세요.</div>
+
+<div class="cta-row" style="margin-top:10px">
+<button class="btn btn-o">임시저장</button>
+<button class="btn btn-d">등록하기 (작성 중)</button>
+</div>
+
+<div class="lg" style="margin-top:8px">
+<strong>로딩 상태 · 등록 중</strong>
+<span>CTA는 진행 중 상태로 전환되고, 동일 글이 중복 등록되지 않도록 방지합니다.</span>
+<div class="sk" style="margin-top:6px;height:32px"></div>
+</div>
+
+<div class="em em-alt">
+<strong>에러 상태 · 저장 실패</strong>
+일시적인 오류로 글을 저장하지 못했습니다.
+<br>입력하신 내용은 이 기기 안에서 임시저장되어 있으며, 연결이 안정화되면 다시 전송할 수 있습니다.
+</div>
+
+<div class="em" style="margin-bottom:2px">
+<strong>빈 상태 · 첫 글쓰기 온보딩</strong>
+"완성된 글"이 아니어도 괜찮아요. 오늘 딱 한 줄만 적어보는 것도 시작입니다.
+</div>
+</div>
+</div>
+<div class="bnav">
+<div class="bnav-it">
+<div class="bnav-ic">
+<svg viewBox="0 0 16 16" fill="none">
+<path d="M2.5 7.5 8 2.5l5.5 5v5H9.2v-3H6.8v3H2.5v-5z" stroke-width="1.3" stroke-linejoin="round"/>
+</svg>
+</div>
+<span>피드</span>
+</div>
+<div class="bnav-it">
+<div class="bnav-ic">
+<svg viewBox="0 0 16 16" fill="none">
+<circle cx="5.2" cy="5.2" r="2.2" stroke-width="1.2"/><circle cx="10.8" cy="10.8" r="2.2" stroke-width="1.2"/>
+<path d="M7.2 7.2 8.7 8.7" stroke-width="1.1" stroke-linecap="round"/>
+</svg>
+</div>
+<span>탐색</span>
+</div>
+<div class="bnav-it on">
+<div class="bnav-ic">
+<svg viewBox="0 0 16 16" fill="none">
+<rect x="3" y="3" width="10" height="10" rx="2.2" stroke-width="1.2"/>
+<path d="M5 8h6M8 5v6" stroke-width="1.2" stroke-linecap="round"/>
+</svg>
+</div>
+<span>글쓰기</span>
+</div>
+<div class="bnav-it">
+<div class="bnav-ic">
+<svg viewBox="0 0 16 16" fill="none">
+<circle cx="8" cy="6" r="2.5" stroke-width="1.2"/>
+<path d="M3.5 12.3c.7-1.4 2.1-2.3 3.7-2.3h1.6c1.6 0 3 .9 3.7 2.3" stroke-width="1.2" stroke-linecap="round"/>
+</svg>
+</div>
+<span>마이</span>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
