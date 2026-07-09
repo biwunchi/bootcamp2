@@ -1,0 +1,81 @@
+# CI pipeline for the Bootcamp Community web app.
+# - Runs lint, typecheck, tests (if scripts exist) and a production build.
+# - Intended to run before Vercel/Supabase deployments.
+# - Place this file at: .github/workflows/ci.yml
+# - 실제 Vercel 배포는 Vercel Git 연동(브랜치 push 기반)으로 수행하고,
+#   main 브랜치 보호 규칙으로 이 워크플로우 통과를 필수 조건으로 설정하는 것을 권장합니다.
+
+name: Web CI (lint, typecheck, build)
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+      - 'fix/**'
+      - 'chore/**'
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: web-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Quality checks
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - name: Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
+
+      - name: Lint (if npm script exists)
+        run: npm run lint --if-present
+
+      - name: Type check (if npm script exists)
+        run: npm run typecheck --if-present
+
+      - name: Test (if npm script exists)
+        run: npm test --if-present
+
+      - name: Build (production)
+        env:
+          NODE_ENV: production
+        run: npm run build
+
+      - name: Upload build artifacts (optional)
+        if: success() && github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-build
+          # Adjust paths based on the framework you use (Next.js / Vite / etc.).
+          # - Next.js: .next
+          # - Vite/CRA: dist or build
+          path: |
+            .next
+            dist
+            build
+          if-no-files-found: ignore
