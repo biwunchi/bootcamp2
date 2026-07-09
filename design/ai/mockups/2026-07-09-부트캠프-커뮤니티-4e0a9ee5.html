@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>부트캠프 커뮤니티 · 모바일 A/B 목업</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;background:#f5f7fb;color:#111;line-height:1.4}
+.app{max-width:1280px;margin:16px auto 40px;padding:0 12px}
+.bar{background:#fff7e0;border:1px solid #f2d58b;color:#9a6f1a;font-size:12px;padding:6px 10px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;margin-bottom:14px}
+.badge{font-size:11px;background:#fff0c2;border-radius:999px;padding:2px 8px}
+.h1{font-size:20px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.tag{font-size:11px;border-radius:999px;padding:2px 7px;border:1px solid #d0e1ff;color:#2463c7;background:#f4f7ff}
+.sub{font-size:12px;color:#555;margin-bottom:16px}
+.row{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:24px}
+.sec{width:100%;margin:8px 0 4px;display:flex;align-items:center;justify-content:space-between}
+.sec-l{display:flex;align-items:center;gap:6px}
+.sec-title{font-size:13px;font-weight:600}
+.sec-sub{font-size:11px;color:#777}
+.sec-pill{font-size:11px;padding:2px 8px;border-radius:999px;background:#e6f5ff;color:#0b5fa8}
+.ph{flex:1 1 280px;max-width:360px;background:#e0e5f5;border-radius:28px;padding:10px 8px;display:flex;justify-content:center}
+.scr{width:100%;max-width:360px;height:640px;background:#fff;border-radius:24px;box-shadow:0 10px 30px rgba(15,35,95,.16);display:flex;flex-direction:column;overflow:hidden;border:1px solid #e2e6f0}
+.sts{height:18px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:10px;color:#667}
+.sts-l{display:flex;align-items:center;gap:4px}
+.dot{width:6px;height:6px;border-radius:50%;background:#0bb19b}
+.time{font-weight:600}
+.sts-r{display:flex;gap:4px}
+.sts-icon{width:10px;height:10px;border-radius:3px;border:1px solid #ccd3e8}
+.hd{padding:8px 14px 6px;border-bottom:1px solid #edf0f7;display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:700;font-size:15px;letter-spacing:-0.02em;display:flex;align-items:center;gap:4px}
+.logo-mark{width:14px;height:14px;border-radius:6px;background:linear-gradient(135deg,#18a4ff,#15c3c0);position:relative}
+.logo-mark:after{content:"";position:absolute;inset:3px;border-radius:4px;border:1px solid rgba(255,255,255,.8)}
+.hd-tag{font-size:10px;color:#3186ff;background:#e7f1ff;border-radius:999px;padding:2px 6px}
+.hd-r{display:flex;align-items:center;gap:8px;font-size:11px;color:#666}
+.hd-f{padding:2px 6px;border-radius:999px;background:#f4f6fb}
+.hd-av{width:22px;height:22px;border-radius:999px;background:linear-gradient(135deg,#ffb84d,#ff6f91);position:relative;overflow:hidden}
+.hd-av:after{content:"";position:absolute;inset:3px;border-radius:999px;background:#fff}
+.tb{padding:6px 12px 2px;border-bottom:1px solid #edf0f7;display:flex;gap:6px;overflow-x:auto}
+.chip{font-size:11px;padding:4px 9px;border-radius:999px;border:1px solid #dde3f5;color:#444;white-space:nowrap;background:#fff}
+.chip-a{border-color:#19a6ff;background:#e7f6ff;color:#0f6fb4;font-weight:600}
+.chip-g{border-style:dashed;color:#777;background:#fafbff}
+.bd{flex:1;overflow-y:auto;padding:8px 10px 6px}
+.btm{border-top:1px solid #edf0f7;padding:6px 10px 8px;display:flex;align-items:center;justify-content:space-between;background:#fbfcff}
+.cta{flex:1;margin:0 8px;height:34px;border-radius:999px;border:none;background:linear-gradient(135deg,#19a6ff,#11c0af);color:#fff;font-size:13px;font-weight:600}
+.btm-ic{width:28px;height:28px;border-radius:999px;border:1px solid #d6ddf1;display:flex;align-items:center;justify-content:center;font-size:11px;color:#667}
+.nav{display:flex;gap:4px}
+.nav-b{flex:1;padding:4px 0;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;color:#7b8197}
+.nav-b span{width:14px;height:14px;border-radius:6px;border:1px solid #c9d0ea;margin-bottom:2px}
+.nav-act{color:#1661d8;font-weight:600;background:#e6f0ff}
+.nav-act span{background:#1661d8;border-color:#1661d8}
+.secst{margin:4px 0 6px;padding:6px 8px;border-radius:14px;background:#f4f7ff;border:1px dashed #cbd6ff}
+.secst-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.secst-t{font-size:11px;font-weight:600;color:#21438a}
+.secst-pills{display:flex;gap:4px}
+.secst-pill{font-size:10px;padding:2px 6px;border-radius:999px;background:#fff;color:#446;border:1px solid #d7e0ff}
+.state-row{display:flex;gap:4px}
+.state{flex:1;background:#fff;border-radius:10px;border:1px solid #e1e5f5;padding:4px 5px}
+.state-h{font-size:9px;color:#6a7892;margin-bottom:2px}
+.state-l{height:6px;border-radius:999px;background:linear-gradient(90deg,#e4ebff,#f8faff)}
+.state-e{font-size:9px;color:#e75852}
+.feed-hd{display:flex;align-items:center;justify-content:space-between;margin:4px 2px 6px}
+.feed-t{font-size:13px;font-weight:600}
+.feed-f{font-size:10px;color:#6b7280}
+.filt{display:flex;gap:4px}
+.f-pill{font-size:10px;padding:3px 6px;border-radius:999px;border:1px solid #e0e4f4;color:#555}
+.f-pill-act{border-color:#18a4ff;background:#e6f6ff;color:#0e6cb9}
+.card{border-radius:16px;border:1px solid #e1e5f3;background:#fff;padding:8px 9px;margin-bottom:8px;box-shadow:0 2px 6px rgba(19,48,96,.06)}
+.card-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.card-l{display:flex;align-items:center;gap:6px}
+.av{width:26px;height:26px;border-radius:999px;background:linear-gradient(135deg,#16c2b5,#19a6ff);position:relative;overflow:hidden}
+.av:after{content:"";position:absolute;inset:3px;border-radius:999px;background:#fff}
+.av-lv{position:absolute;bottom:-2px;right:-1px;background:#1450a3;color:#fff;font-size:8px;border-radius:999px;padding:0 3px;border:1px solid #fff}
+.meta{font-size:10px;color:#6c7484}
+.meta strong{font-size:11px;color:#111}
+.bad{font-size:9px;padding:2px 5px;border-radius:999px;background:#e9f7ff;color:#0f6cb2;border:1px solid #c6e6ff}
+.card-t{font-size:13px;font-weight:600;margin-bottom:3px}
+.card-tag{font-size:10px;color:#2563eb;background:#e5f0ff;border-radius:999px;padding:1px 6px;margin-right:4px}
+.card-b{display:flex;align-items:center;justify-content:space-between;margin-top:4px;font-size:10px;color:#6b7487}
+.card-sts{display:flex;align-items:center;gap:6px}
+.dot-s{width:6px;height:6px;border-radius:50%;background:#0bb19b}
+.dot-w{background:#f59e0b}
+.dot-c{background:#6b7280}
+.card-nums{display:flex;align-items:center;gap:6px}
+.num{display:flex;align-items:center;gap:2px}
+.num span{width:10px;height:10px;border-radius:3px;border:1px solid #d0d5e5}
+.num-t{font-size:9px}
+.bad2{background:#fff2ec;color:#b75127;border-color:#fbd2b6}
+.empty{border-radius:16px;border:1px dashed #d2d7e7;background:#f8fafc;padding:10px 8px;text-align:center;margin:6px 2px 10px}
+.empty-t{font-size:12px;font-weight:600;color:#4b5563;margin-bottom:2px}
+.empty-p{font-size:10px;color:#6b7280;margin-bottom:6px}
+.empty-cta{display:inline-block;font-size:11px;padding:3px 10px;border-radius:999px;background:#0ea5e9;color:#fff}
+.loader{border-radius:14px;border:1px solid #e0e4f3;background:linear-gradient(90deg,#f5f6fb,#e6ecff,#f5f6fb);background-size:200% 100%;height:52px;margin:4px 2px 6px;position:relative;overflow:hidden}
+.loader::after{content:"";position:absolute;inset:10px;border-radius:8px;border:1px dashed rgba(255,255,255,.8)}
+.err{border-radius:16px;border:1px solid #fecaca;background:#fef2f2;padding:8px 8px 7px;margin:6px 2px;font-size:11px;color:#b91c1c;display:flex;justify-content:space-between;align-items:flex-start}
+.err-l{display:flex;gap:6px}
+.err-ic{width:16px;height:16px;border-radius:999px;border:2px solid #fca5a5;position:relative}
+.err-ic:after{content:"!";position:absolute;left:4px;top:-1px;font-size:13px;font-weight:700;color:#b91c1c}
+.err-r{font-size:10px;color:#b91c1c;text-decoration:underline}
+.dtl-hd{padding:8px 12px 4px;border-bottom:1px solid #edf0f7}
+.dtl-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.bcrumb{font-size:10px;color:#6b7280}
+.bcrumb span{color:#111;font-weight:600}
+.dtl-title{font-size:16px;font-weight:700;margin-bottom:4px}
+.dtl-meta{font-size:11px;color:#6b7280;display:flex;align-items:center;gap:8px}
+.dtl-meta-tag{font-size:10px;padding:2px 6px;border-radius:999px;background:#e5f0ff;color:#1d4ed8}
+.dtl-body{padding:8px 12px 6px;font-size:13px;color:#111;line-height:1.5}
+.dtl-body p{margin-bottom:6px}
+.badge-l{font-size:10px;padding:2px 5px;border-radius:6px;background:#ecfdf5;color:#15803d;margin-left:4px}
+.dtl-inline{font-size:12px;color:#4b5563;background:#f9fafb;border-radius:10px;padding:6px 8px;margin-bottom:6px}
+.sec-line{height:40px;border-radius:14px;background:linear-gradient(90deg,#e5f3ff,#e7fff9);border:1px solid #cde7ff;padding:8px 8px;margin:4px 2px 8px;display:flex;justify-content:space-between;align-items:center;font-size:11px}
+.sec-line strong{color:#075985}
+.sec-line span{font-size:10px;color:#0f766e}
+.dtl-nums{display:flex;gap:8px;font-size:10px;color:#6b7280;margin:2px 2px 6px}
+.dtl-nums strong{color:#111}
+.cmt-head{display:flex;justify-content:space-between;align-items:center;margin:4px 2px 4px;font-size:12px;font-weight:600}
+.cmt-tab{display:flex;gap:4px;font-size:10px}
+.cmt-pill{padding:2px 6px;border-radius:999px;border:1px solid #e0e4f4;color:#6b7280}
+.cmt-pill-act{background:#e6f0ff;color:#1d4ed8;border-color:#b5ccff}
+.cmt{border-radius:12px;border:1px solid #e1e5f3;background:#fafbff;padding:6px 7px;margin:2px 2px 4px}
+.cmt-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px}
+.cmt-meta{font-size:10px;color:#6b7280}
+.cmt-body{font-size:12px;color:#111;margin-bottom:2px}
+.cmt-tag{font-size:10px;padding:1px 5px;border-radius:999px;background:#ecfeff;color:#0e7490}
+.cmt-more{font-size:10px;color:#0f6cb9;text-decoration:underline;margin:0 2px 6px;display:inline-block}
+.cmt-empty{border-radius:10px;border:1px dashed #d4d7e6;padding:6px 7px;font-size:11px;color:#6b7280;margin:2px 2px 6px}
+.cmt-form{border-top:1px solid #edf0f7;padding:6px 8px;display:flex;align-items:flex-end;gap:4px}
+.cmt-ipt{flex:1;border-radius:999px;border:1px solid #d0d7f0;padding:6px 9px;font-size:11px}
+.cmt-send{width:30px;height:30px;border-radius:999px;border:none;background:#1661d8;color:#fff;font-size:11px}
+.form{padding:8px 12px 6px;font-size:12px}
+.f-row{margin-bottom:8px}
+.f-lab{font-size:11px;font-weight:600;margin-bottom:3px;display:flex;align-items:center;justify-content:space-between}
+.f-lab span{font-size:10px;color:#9ca3af}
+.input,.ta,.pill-sel{width:100%;border-radius:12px;border:1px solid #d1d5e5;padding:7px 8px;font-size:12px}
+.ta{height:130px;resize:none;line-height:1.5}
+.hint{font-size:10px;color:#6b7280;margin-top:3px}
+.pill-wrap{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}
+.pill-s{font-size:10px;padding:3px 7px;border-radius:999px;border:1px solid #d1d5e5;color:#4b5563;background:#fff}
+.pill-s-act{background:#e6f0ff;border-color:#b5ccff;color:#1d4ed8;font-weight:600}
+.tpl{border-radius:12px;border:1px solid #e1e4f2;background:#f9fafb;padding:6px 7px;font-size:11px;margin-top:4px}
+.tpl-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:3px}
+.tpl-pill{font-size:10px;border-radius:999px;padding:2px 6px;background:#fff;color:#2563eb;border:1px solid #bfdbfe}
+.tpl-l{font-size:10px;color:#6b7280}
+.err-inline{font-size:10px;color:#b91c1c;margin-top:2px}
+.err-inline span{background:#fee2e2;padding:2px 4px;border-radius:6px}
+.preview{border-radius:12px;border:1px dashed #cbd5f5;background:#f5f7ff;padding:5px 7px;font-size:10px;color:#4b5563;margin-top:4px}
+.switch{display:flex;gap:4px;font-size:10px;margin-top:3px}
+.sw{flex:1;border-radius:999px;border:1px solid #d1d5e5;padding:3px 6px;display:flex;align-items:center;justify-content:space-between}
+.sw span{font-size:10px}
+.sw-on{background:#ecfdf5;border-color:#6ee7b7;color:#047857}
+@media(max-width:900px){.ph{max-width:100%}.scr{height:620px}}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="bar"><span>시안 미리보기 · 목업 데이터 · 실 배포 X</span><span class="badge">부트캠프 커뮤니티 · 모바일 A/B</span></div>
+<div class="h1">부트캠프 커뮤니티<span class="tag">모바일 피드 / 상세 / 글쓰기</span></div>
+<div class="sub">라이트 SaaS 톤 A, 커뮤니티 톤 B 2안 비교용 HTML 목업입니다. 실제 데이터/배포가 아닌 AI 시안용 구조 참고용입니다.</div>
+
+<!-- 안 A -->
+<div class="sec">
+  <div class="sec-l"><div class="sec-title">안 A · 라이트 SaaS 톤</div><div class="sec-sub">정보 정리/학습 중심 레이아웃</div></div>
+  <div class="sec-pill">피드 밀도 · 상태 섹션 강조</div>
+</div>
+<div class="row">
+  <!-- A / 홈 -->
+  <div class="ph">
+    <div class="scr">
+      <div class="sts"><div class="sts-l"><div class="dot"></div><div class="time">9:41</div></div><div class="sts-r"><div class="sts-icon"></div><div class="sts-icon"></div><div class="sts-icon"></div></div></div>
+      <div class="hd">
+        <div class="logo"><div class="logo-mark"></div><span>부트캠프 커뮤니티</span><span class="hd-tag">Beta</span></div>
+        <div class="hd-r"><span class="hd-f">마이 트랙 · 프론트엔드</span><div class="hd-av"></div></div>
+      </div>
+      <div class="tb">
+        <div class="chip chip-a">전체 피드</div>
+        <div class="chip">같이 학습해요</div>
+        <div class="chip">프로젝트 구인</div>
+        <div class="chip chip-g">필터 · 기수 / 직무</div>
+      </div>
+      <div class="bd">
+        <div class="secst">
+          <div class="secst-hd">
+            <div class="secst-t">피드 상태 예시 (목업)</div>
+            <div class="secst-pills">
+              <div class="secst-pill">기본</div>
+              <div class="secst-pill">빈</div>
+              <div class="secst-pill">로딩</div>
+              <div class="secst-pill">에러</div>
+            </div>
+          </div>
+          <div class="state-row">
+            <div class="state">
+              <div class="state-h">기본</div>
+              <div class="state-l"></div>
+            </div>
+            <div class="state">
+              <div class="state-h">빈 피드</div>
+              <div class="state-l" style="background:#fefce8"></div>
+            </div>
+            <div class="state">
+              <div class="state-h">로딩</div>
+              <div class="state-l" style="background:repeating-linear-gradient(90deg,#e5edff 0 12px,#f9fafb 12px 24px)"></div>
+            </div>
+            <div class="state">
+              <div class="state-h">에러</div>
+              <div class="state-e">네트워크 오류</div>
+            </div>
+          </div>
+        </div>
+        <div class="feed-hd">
+          <div>
+            <div class="feed-t">오늘의 부트캠프 피드</div>
+            <div class="feed-f">지금 248명이 접속 중 · 내 기수 5개 글 업데이트</div>
+          </div>
+        </div>
+        <div class="filt">
+          <div class="f-pill f-pill-act">내 트랙 중심</div>
+          <div class="f-pill">전체 기수 · 최신순</div>
+          <div class="f-pill">북마크만</div>
+        </div>
+
+        <div class="card">
+          <div class="card-h">
+            <div class="card-l">
+              <div class="av"><div class="av-lv">LV3</div></div>
+              <div class="meta"><strong>FE 4기 · 김로켓</strong><br>오늘 오전 10:12 · 12분 전</div>
+            </div>
+            <div class="bad">데일리 회고 · 실시간</div>
+          </div>
+          <div class="card-t">오늘 JS 과제에서 다들 막힌 부분 공유해요</div>
+          <div class="meta" style="margin-top:2px">비동기 통신(useEffect, fetch) 과제에서 헷갈린 포인트 정리했습니다. 각자 막힌 부분 코멘트로 남겨주세요.</div>
+          <div class="card-b">
+            <div class="card-sts">
+              <span class="dot-s"></span><span class="num-t">진행 중 · 8명 참여</span>
+            </div>
+            <div class="card-nums">
+              <div class="num"><span></span><span class="num-t">댓글 23</span></div>
+              <div class="num"><span></span><span class="num-t">북마크 17</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-h">
+            <div class="card-l">
+              <div class="av"></div>
+              <div class="meta"><strong>공식 운영팀</strong><br>오늘 오전 09:00 · 공지</div>
+            </div>
+            <div class="bad bad2">진행 공지</div>
+          </div>
+          <div class="card-t">7월 온라인 해커톤 · 팀빌딩 오픈</div>
+          <div class="meta" style="margin-top:2px"><span class="card-tag">프로젝트</span><span class="card-tag" style="background:#ecfeff;color:#0369a1">7/27(토) · 전 트랙</span> 해커톤 팀빌딩 채널이 열렸습니다. 마감 전까지 최소 1개 팀 참여 필수입니다.</div>
+          <div class="card-b">
+            <div class="card-sts">
+              <span class="dot-w"></span><span class="num-t">D-5 · 팀 18/40</span>
+            </div>
+            <div class="card-nums">
+              <div class="num"><span></span><span class="num-t">댓글 41</span></div>
+              <div class="num"><span></span><span class="num-t">조회 1,203</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-h">
+            <div class="card-l">
+              <div class="av"></div>
+              <div class="meta"><strong>BE 3기 · 이데이터</strong><br>어제 오후 10:41 · 14시간 전</div>
+            </div>
+            <div class="bad">질문 · 코드 리뷰</div>
+          </div>
+          <div class="card-t">NestJS 과제 API 설계 피드백 부탁드립니다</div>
+          <div class="meta" style="margin-top:2px">RESTful 관점에서 엔드포인트 설계가 괜찮은지, 트랜잭션 처리 구조도 함께 봐주시면 감사하겠습니다.</div>
+          <div class="card-b">
+            <div class="card-sts">
+              <span class="dot-c"></span><span class="num-t">해결 완료 · 채택 2개</span>
+            </div>
+            <div class="card-nums">
+              <div class="num"><span></span><span class="num-t">댓글 11</span></div>
+              <div class="num"><span></span><span class="num-t">좋아요 19</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="empty">
+          <div class="empty-t">빈 피드 상태 (예시)</div>
+          <div class="empty-p">선택한 필터에 맞는 글이 아직 없습니다. 필터를 풀거나 첫 글을 올려보세요.</div>
+          <span class="empty-cta">첫 글 쓰기 시작</span>
+        </div>
+
+        <div class="loader"></div>
+
+        <div class="err">
+          <div class="err-l">
+            <div class="err-ic"></div>
+            <div>피드를 불러오지 못했어요.<br><span style="font-size:10px;color:#b45309">네트워크 상태를 확인한 뒤 다시 시도해주세요.</span></div>
+          </div>
+          <div class="err-r">다시 시도</div>
+        </div>
+      </div>
+      <div class="btm">
+        <div class="btm-ic">필터</div>
+        <button class="cta">새 글 쓰기</button>
+        <div class="nav">
+          <div class="nav-b nav-act"><span></span>피드</div>
+          <div class="nav-b"><span></span>내 학습</div>
+          <div class="nav-b"><span></span>알림</div>
+          <div class="nav-b"><span></span>프로필</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- A / 상세 -->
+  <div class="ph">
+    <div class="scr">
+      <div class="sts"><div class="sts-l"><div class="dot"></div><div class="time">9:42</div></div><div class="sts-r"><div class="sts-icon"></div><div class="sts-icon"></div><div class="sts-icon"></div></div></div>
+      <div class="dtl-hd">
+        <div class="dtl-top">
+          <div class="bcrumb">전체 피드 &gt; <span>FE 4기 데일리 회고</span></div>
+          <div style="font-size:11px;color:#6b7280">옵션</div>
+        </div>
+        <div class="dtl-title">오늘 JS 비동기 과제, 여기서 막혔어요</div>
+        <div class="dtl-meta">
+          <span>FE 4기 · 김로켓</span>
+          <span>오늘 오전 10:12 · 조회 312</span>
+          <span class="dtl-meta-tag">데일리 회고</span>
+        </div>
+      </div>
+      <div class="bd">
+        <div class="sec-line">
+          <div><strong>트랙 기준 가이드</strong><br><span>프론트엔드 4기 · 과제 #12 비동기 통신</span></div>
+          <div style="font-size:10px;color:#0369a1">가이드 보기</div>
+        </div>
+        <div class="dtl-body">
+          <p>오늘 과제에서 특히 헷갈렸던 부분은 <strong>useEffect 의 의존성 배열</strong>과 <strong>로딩 상태 관리</strong>였습니다.</p>
+          <div class="dtl-inline">제가 이해한 흐름은 다음과 같습니다. 틀린 부분 있으면 코멘트로 알려주세요.<br>- 마운트 시 1회 API 호출<br>- 요청 시작 전에 loading=true, 완료 후 false<br>- 에러 발생 시 error 객체에 담고, UI에서 분기 처리</div>
+          <p>혹시 <strong>실무에서 자주 쓰는 패턴</strong>이나, 팀에서 통일해두면 좋을 룰이 있다면 같이 공유해주시면 좋겠습니다.</p>
+          <p>📌 제가 참고한 레포: <span style="font-size:11px;color:#2563eb;text-decoration:underline">fe-bootcamp/async-tutorial</span></p>
+        </div>
+        <div class="dtl-nums">
+          <div>현재 상태: <strong>진행 중</strong><span class="badge-l">질문 받는 중</span></div>
+          <div>댓글 <strong>23</strong> · 북마크 <strong>17</strong> · 좋아요 <strong>34</strong></div>
+        </div>
+
+        <div class="cmt-head">
+          <div>댓글 23개</div>
+          <div class="cmt-tab">
+            <div class="cmt-pill cmt-pill-act">최신순</div>
+            <div class="cmt-pill">좋아요순</div>
+          </div>
+        </div>
+
+        <div class="cmt">
+          <div class="cmt-h">
+            <div class="cmt-meta"><strong>멘토 · 이프론트</strong> · 15분 전</div>
+            <div class="cmt-tag">멘토 답변</div>
+          </div>
+          <div class="cmt-body">좋은 질문이에요. 실무에서는 로딩/에러 상태를 훅으로 분리해서 재사용하는 경우가 많습니다. 예: <code style="font-size:10px;background:#e5e7eb;border-radius:4px;padding:1px 3px">useAsyncQuery</code> 처럼요.</div>
+          <div class="cmt-meta">좋아요 12 · 대댓글 3</div>
+        </div>
+
+        <div class="cmt">
+          <div class="cmt-h">
+            <div class="cmt-meta"><strong>FE 4기 · 박리액트</strong> · 7분 전</div>
+          </div>
+          <div class="cmt-body">저도 비슷하게 막혔는데, 의존성 배열에 state 를 잘못 넣어서 무한 호출 났었습니다. <strong>eslint-plugin-react-hooks</strong> 설치해두면 좀 더 안전하더라고요.</div>
+          <div class="cmt-meta">좋아요 3 · 대댓글 1</div>
+        </div>
+
+        <div class="cmt-empty">아직 더 이상 댓글이 없습니다. 이 글이 도움이 되었다면 간단한 피드백도 작성해보세요.</div>
+
+        <a class="cmt-more" href="#">이전 댓글 12개 더 보기</a>
+
+        <div class="empty" style="margin-top:4px">
+          <div class="empty-t">댓글 로딩 상태 (예시)</div>
+          <div class="empty-p">댓글을 불러오는 동안 스켈레톤 UI 를 보여줄 수 있습니다.</div>
+        </div>
+
+        <div class="err" style="margin-top:6px">
+          <div class="err-l">
+            <div class="err-ic"></div>
+            <div>댓글을 가져오지 못했어요.<br><span style="font-size:10px;color:#b45309">잠시 후 다시 시도하거나 새로고침 해주세요.</span></div>
+          </div>
+          <div class="err-r">새로고침</div>
+        </div>
+      </div>
+      <div class="cmt-form">
+        <input class="cmt-ipt" placeholder="댓글로 내 경험도 공유해보세요">
+        <button class="cmt-send">전송</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- A / 글쓰기 -->
+  <div class="ph">
+    <div class="scr">
+      <div class="sts"><div class="sts-l"><div class="dot"></div><div class="time">9:43</div></div><div class="sts-r"><div class="sts-icon"></div><div class="sts-icon"></div><div class="sts-icon"></div></div></div>
+      <div class="hd">
+        <div class="logo"><span>새 글 작성</span></div>
+        <div class="hd-r"><span class="hd-f">자동 임시저장 0:32</span></div>
+      </div>
+      <div class="bd">
+        <div class="form">
+          <div class="f-row">
+            <div class="f-lab">작성 채널<span>내 기수 기준 추천</span></div>
+            <div class="pill-wrap">
+              <div class="pill-s pill-s-act">FE 4기 · 데일리 회고</div>
+              <div class="pill-s">FE 4기 · 질문 / 코드 리뷰</div>
+              <div class="pill-s">전체 트랙 · 프로젝트 구인</div>
+              <div class="pill-s">전체 트랙 · 자유 주제</div>
+            </div>
+          </div>
+          <div class="f-row">
+            <div class="f-lab">제목<span>필수 · 10자 이상</span></div>
+            <input class="input" value="오늘 비동기 패턴 정리하면서 느낀 점" />
+            <div class="hint">예: "3일 차에 알게 된 상태 관리 팁", "같이 리팩터링 해보실 분" 등 구체적으로 적어주세요.</div>
+          </div>
+          <div class="f-row">
+            <div class="f-lab">본문<span>코드/이미지 붙여넣기 지원 예정</span></div>
+            <textarea class="ta">오늘 과제에서 어떤 부분이 특히 헷갈렸는지, 해결을 위해 어떤 시도를 했는지, 내일은 무엇을 바꿔볼지까지 적어보면 좋아요.
+
+1. 내가 이해한 개념
+2. 막혔던 테스트 케이스
+3. 내일 시도해보고 싶은 것</textarea>
+            <div class="hint">Shift+Enter 로 줄바꿈, Enter 로 문단 구분. 링크를 붙여넣으면 자동으로 미리보기가 생성됩니다.</div>
+          </div>
+          <div class="f-row">
+            <div class="f-lab">태그<span>최대 3개 선택</span></div>
+            <div class="pill-wrap">
+              <div class="pill-s pill-s-act">비동기</div>
+              <div class="pill-s pill-s-act">리액트</div>
+              <div class="pill-s">데일리 회고</div>
+              <div class="pill-s">멘토 피드백 요청</div>
+              <div class="pill-s">프로젝트</div>
+            </div>
+          </div>
+          <div class="f-row">
+            <div class="f-lab">공개 범위<span>향후 수정 가능</span></div>
+            <div class="switch">
+              <div class="sw sw-on"><span>내 기수에게만 공개</span><span>추천</span></div>
+              <div class="sw"><span>전체 트랙 공개</span><span>멘토 열람</span></div>
+            </div>
+          </div>
+          <div class="tpl">
+            <div class="tpl-h">
+              <div>템플릿 불러오기</div>
+              <div class="tpl-pill">데일리 회고 기본</div>
+            </div>
+            <div class="tpl-l">자주 쓰는 글 구조를 템플릿으로 저장해두고 불러올 수 있습니다.</div>
+          </div>
+          <div class="err-inline"><span>제목이 조금 짧아요.</span> 구체적인 상황/질문이 보이도록 5자 이상만 더 작성해보면 어떨까요?</div>
+          <div class="preview">로딩 상태 예시: 저장 중일 때 상단에 "임시저장 중..." 배너를 띄우고, 실패 시 재시도 버튼을 노출합니다.</div>
+        </div>
+      </div>
+      <div class="btm">
+        <div class="btm-ic">임시</div>
+        <button class="cta">작성 완료 · 피드에 공유</button>
+        <div class="nav">
+          <div class="nav-b"><span></span>작성 취소</div>
+          <div class="nav-b nav-act"><span></span>검토</div>
+          <div class="nav-b"><span></span>임시저장</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 안 B -->
+<div class="sec">
+  <div class="sec-l"><div class="sec-title">안 B · 커뮤니티 톤</div><div class="sec-sub">대화/참여 유도 중심 레이아웃</div></div>
+  <div class="sec-pill">댓글 배치 · 참여 CTA 강조</div>
+</div>
+<div class="row">
+  <!-- B / 홈 -->
+  <div class="ph">
+    <div class="scr">
+      <div class="sts"><div class="sts-l"><div class="dot"></div><div class="time">9:44</div></div><div class="sts-r"><div class="sts-icon"></div><div class="sts-icon"></div><div class="sts-icon"></div></div></div>
+      <div class="hd">
+        <div class="logo"><div class="logo-mark"></div><span>부트캠프 광장</span></div>
+        <div class="hd-r"><span class="hd-f">지금 질문하기</span><div class="hd-av"></div></div>
+      </div>
+      <div class="tb">
+        <div class="chip chip-a">오늘 뜨는 글</div>
+        <div class="chip">내 질문</div>
+        <div class="chip">답변 기다리는 글</div>
+        <div class="chip chip-g">필터 · 인기순</div>
+      </div>
+      <div class="bd">
+        <div class="feed-hd">
+          <div>
+            <div class="feed-t">방금 올라온 이야기</div>
+            <div class="feed-f">마지막 1시간 · 질문 9개 · 회고 14개</div>
+          </div>
+          <div class="filt">
+            <div class="f-pill f-pill-act">실시간</div>
+            <div class="f-pill">오늘</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-h">
+            <div class="card-l">
+              <div class="av"><div class="av-lv">LV2</div></div>
+              <div class="meta"><strong>UX 2기 · 장와이어</strong><br>방금 전 · 모바일</div>
+            </div>
+            <div class="bad">피드백 요청</div>
+          </div>
+          <div class="card-t">과제 와이어프레임, 이 동선 어색한가요?</div>
+          <div class="meta" style="margin-top:2px">로그인 &gt; 온보딩 &gt; 메인 피드 진입 동선을 이렇게 짰는데, 처음 보는 사람에게 자연스러울지 고민입니다.</div>
+          <div class="card-b">
+            <div class="card-nums">
+              <div class="num"><span></span><span class="num-t">댓글 4</span></div>
+              <div class="num"><span></span><span class="num-t">공감 7</span></div>
+            </div>
+            <div class="card-sts">
+              <span class="dot-w"></span><span class="num-t">답변 기다리는 중</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-h">
+            <div class="card-l">
+              <div class="av"></div>
+              <div class="meta"><strong>FE 5기 · 최테스트</strong><br>5분 전 · Web</div>
+            </div>
+            <div class="bad">스터디 모집</div>
+          </div>
+          <div class="card-t">React 테스트 코드 같이 연습하실 분 (주 2회)</div>
+          <div class="meta" style="margin-top:2px"><span class="card-tag">TDD</span><span class="card-tag">Testing Library</span> 3주 완주 목표로, 밤 10시에 온라인으로만 부담 없이 진행해봐요.</div>
+          <div class="card-b">
+            <div class="card-nums">
+              <div class="num"><span></span><span class="num-t">신청 6/8</span></div>
+              <div class="num"><span></span><span class="num-t">댓글 13</span></div>
+            </div>
+            <div class="card-sts">
+              <span class="dot-s"></span><span class="num-t">모집 중</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-h">
+            <div class="card-l">
+              <div class="av"></div>
+              <div class="meta"><strong>전체 공지 · 운영팀</strong><br>어제 · 19:00</div>
+            </div>
+            <div class="bad bad2">커뮤니티 가이드</div>
+          </div>
+          <div class="card-t">서로의 성장에 도움이 되는 질문, 이렇게 써주세요</div>
+          <div class="meta" style="margin-top:2px">"지금 상황"·"시도해본 것"·"어디까지 이해했는지" 세 가지를 꼭 적으면 더 빠르게 답변을 받을 수 있어요.</div>
+          <div class="card-b">
+            <div class="card-nums">
+              <div class="num"><span></span><span class="num-t">북마크 103</span></div>
+              <div class="num"><span></span><span class="num-t">공감 89</span></div>
+            </div>
+            <div class="card-sts">
+              <span class="dot-c"></span><span class="num-t">상단 고정</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="empty">
+          <div class="empty-t">아직 내 질문이 없어요</div>
+          <div class="empty-p">조금 헷갈리는 부분이라도 괜찮아요. 비슷한 고민을 한 동료가 분명 있을 거예요.</div>
+          <span class="empty-cta">첫 질문 남기기</span>
+        </div>
+
+        <div class="loader"></div>
+
+        <div class="err">
+          <div class="err-l">
+            <div class="err-ic"></div>
+            <div>커뮤니티 피드를 가져오지 못했어요.<br><span style="font-size:10px;color:#b45309">임시로 최근 캐시 내용을 보여줄 수도 있어요.</span></div>
+          </div>
+          <div class="err-r">캐시 보기</div>
+        </div>
+      </div>
+      <div class="btm">
+        <div class="btm-ic">검색</div>
+        <button class="cta">질문 쓰기</button>
+        <div class="nav">
+          <div class="nav-b nav-act"><span></span>광장</div>
+          <div class="nav-b"><span></span>질문함</div>
+          <div class="nav-b"><span></span>스터디</div>
+          <div class="nav-b"><span></span>마이</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B / 상세 -->
+  <div class="ph">
+    <div class="scr">
+      <div class="sts"><div class="sts-l"><div class="dot"></div><div class="time">9:45</div></div><div class="sts-r"><div class="sts-icon"></div><div class="sts-icon"></div><div class="sts-icon"></div></div></div>
+      <div class="dtl-hd">
+        <div class="dtl-top">
+          <div class="bcrumb">부트캠프 광장 &gt; <span>질문</span></div>
+          <div style="font-size:11px;color:#1d4ed8">팔로우</div>
+        </div>
+        <div class="dtl-title">과제 코드 리뷰 부탁드려요 (리팩터링 전/후)</div>
+        <div class="dtl-meta">
+          <span>FE 5기 · 최테스트</span>
+          <span>10분 전 · 조회 98</span>
+          <span class="dtl-meta-tag">코드 리뷰</span>
+        </div>
+      </div>
+      <div class="bd">
+        <div class="dtl-body">
+          <p>리액트로 Todo 리스트를 구현하는 과제입니다. 아래 코드가 처음에 작성한 버전이고, 어떤 기준으로 리팩터링하면 좋을지 감이 잘 안 오더라고요.</p>
+          <p><strong>Q1. 상태를 어디까지 쪼개야 할까요?</strong><br>현재는 상위 컴포넌트에 todos 를 모두 두고 props 로 내려보내고 있는데, 아이템 수준으로 나누는 게 맞을까요?</p>
+          <div class="dtl-inline">리팩터링 전 코드: useState 로만 관리<br>리팩터링 후 목표: 커스텀 훅으로 분리 + 테스트 가능한 구조</div>
+          <p>시간 괜찮으신 분들께서 "이렇게 바꾸면 더 읽기 좋을 것 같다" 라는 의견을 자유롭게 주시면 감사하겠습니다.</p>
+        </div>
+        <div class="dtl-nums">
+          <div>현재 상태: <strong>답변 대기</strong><span class="badge-l" style="background:#fefce8;color:#92400e">멘토 태그됨</span></div>
+          <div>댓글 <strong>5</strong> · 북마크 <strong>8</strong> · 공감 <strong>12</strong></div>
+        </div>
+
+        <div class="sec-line" style="background:linear-gradient(90deg,#fdf2ff,#ecfeff);border-color:#f5d0fe">
+          <div><strong>비슷한 질문 3개</strong><br><span>답변 채택된 글 먼저 확인해볼까요?</span></div>
+          <div style="font-size:10px;color:#9d174d">목록 보기</div>
+        </div>
+
+        <div class="cmt-head">
+          <div>댓글 5개 · 답변 2개</div>
+          <div class="cmt-tab">
+            <div class="cmt-pill cmt-pill-act">답변 먼저</div>
+            <div class="cmt-pill">전체</div>
+          </div>
+        </div>
+
+        <div class="cmt">
+          <div class="cmt-h">
+            <div class="cmt-meta"><strong>멘토 · 김리팩</strong> · 3분 전</div>
+            <div class="cmt-tag">멘토 답변</div>
+          </div>
+          <div class="cmt-body">상태를 어디까지 쪼갤지는 "변경 가능성"을 기준으로 보면 좋아요. 체크 여부, 필터링, 정렬처럼 서로 다른 타이밍에 바뀌는 값이라면 분리하는 걸 추천합니다.</div>
+          <div class="cmt-meta">좋아요 6 · 이 답변이 도움이 되었나요?</div>
+        </div>
+
+        <div class="cmt">
+          <div class="cmt-h">
+            <div class="cmt-meta"><strong>FE 5기 · 박상태</strong> · 1분 전</div>
+          </div>
+          <div class="cmt-body">전 "이 컴포넌트가 사라져도 괜찮은 데이터인가?" 를 기준으로 생각하고 있어요. 사라져도 안 되는 데이터는 더 상위에서 관리하는 식으로요.</div>
+          <div class="cmt-meta">좋아요 1 · 대댓글 0</div>
+        </div>
+
+        <div class="cmt-empty">이 질문이 마음에 드셨다면 비슷한 고민을 한 경험을 간단히 공유만 해줘도 큰 도움이 됩니다.</div>
+
+        <div class="empty" style="margin-top:4px">
+          <div class="empty-t">빈 댓글 상태 (예시)</div>
+          <div class="empty-p">아직 첫 댓글이 없습니다. 비슷한 경험을 나눠주시면 질문자가 덜 막막해질 거예요.</div>
+        </div>
+
+        <div class="loader"></div>
+
+        <div class="err" style="margin-top:6px">
+          <div class="err-l">
+            <div class="err-ic"></div>
+            <div>새 댓글을 저장하지 못했어요.<br><span style="font-size:10px;color:#b45309">입력한 내용은 로컬에 임시 보관 중입니다.</span></div>
+          </div>
+          <div class="err-r">다시 보내기</div>
+        </div>
+      </div>
+      <div class="cmt-form">
+        <input class="cmt-ipt" placeholder="격려와 함께 구체적인 팁 한 가지를 남겨보세요">
+        <button class="cmt-send">등록</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- B / 글쓰기 -->
+  <div class="ph">
+    <div class="scr">
+      <div class="sts"><div class="sts-l"><div class="dot"></div><div class="time">9:46</div></div><div class="sts-r"><div class="sts-icon"></div><div class="sts-icon"></div><div class="sts-icon"></div></div></div>
+      <div class="hd">
+        <div class="logo"><span>질문 쓰기</span></div>
+        <div class="hd-r"><span class="hd-f">작성 가이드</span></div>
+      </div>
+      <div class="bd">
+        <div class="form">
+          <div class="f-row">
+            <div class="f-lab">어떤 종류의 글인가요?<span>필수</span></div>
+            <div class="pill-wrap">
+              <div class="pill-s pill-s-act">질문</div>
+              <div class="pill-s">코드 리뷰</div>
+              <div class="pill-s">회고</div>
+              <div class="pill-s">스터디 모집</div>
+            </div>
+          </div>
+          <div class="f-row">
+            <div class="f-lab">제목<span>지금 상황이 보이도록</span></div>
+            <input class="input" value="[FE 5기] Todo 리스트 상태 관리 방향이 헷갈립니다" />
+            <div class="hint">예: "[기수] [트랙] + 한 줄로 요약한 고민" 형태로 적어보세요.</div>
+          </div>
+          <div class="f-row">
+            <div class="f-lab">지금 어떤 상황인가요?<span>필수</span></div>
+            <textarea class="ta">예상했던 동작: 
+- 체크박스를 클릭하면 해당 항목만 완료 섹션으로 이동합니다.
+
+현재 동작:
+- 체크 후 새로고침하면 상태가 초기화되고,
+- 필터를 적용하면 완료된 항목도 같이 보입니다.
+
+시도해본 것:
+- useEffect 의 의존성 배열 조정
+- localStorage 로 상태 유지 시도</textarea>
+          </div>
+          <div class="f-row">
+            <div class="f-lab">어떤 답을 기대하고 있나요?<span>선택</span></div>
+            <textarea class="ta" style="height:80px">예: "파일 구조 추천", "리팩터링 방향성", "테스트 코드 예시" 등 구체적으로 알려주세요.</textarea>
+          </div>
+          <div class="f-row">
+            <div class="f-lab">태그 선택<span>최대 3개</span></div>
+            <div class="pill-wrap">
+              <div class="pill-s pill-s-act">React</div>
+              <div class="pill-s pill-s-act">상태 관리</div>
+              <div class="pill-s">초보 질문</div>
+              <div class="pill-s">멘토링 희망</div>
+              <div class="pill-s">코드 공유</div>
+            </div>
+          </div>
+          <div class="tpl">
+            <div class="tpl-h">
+              <div>좋은 질문 체크리스트</div>
+              <div class="tpl-pill">3/4 항목 작성됨</div>
+            </div>
+            <ul style="font-size:10px;color:#4b5563;padding-left:14px;list-style:disc">
+              <li>지금 상황을 설명했나요?</li>
+              <li>시도해본 것을 적었나요?</li>
+              <li>에러 메시지/스크린샷을 포함했나요?</li>
+              <li>어떤 답을 기대하는지 적었나요?</li>
+            </ul>
+          </div>
+          <div class="err-inline"><span>본문이 조금 짧아요.</span> "시도해본 것"과 "원하는 답"을 한 줄씩만 더 보태면 답변율이 올라갑니다.</div>
+          <div class="preview">에러 상태 예시: 저장 버튼 클릭 시 실패하면 상단에 토스트로 "저장에 실패했어요, 다시 시도해주세요." 를 띄우고 이 폼은 그대로 유지됩니다.</div>
+        </div>
+      </div>
+      <div class="btm">
+        <div class="btm-ic">초안</div>
+        <button class="cta">질문 올리기</button>
+        <div class="nav">
+          <div class="nav-b"><span></span>미리보기</div>
+          <div class="nav-b nav-act"><span></span>공개</div>
+          <div class="nav-b"><span></span>임시저장</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</body>
+</html>
