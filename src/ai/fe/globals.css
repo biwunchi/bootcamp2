@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  프로젝트 전역 스타일 (임시)
+  - Tailwind CSS 기반 유틸리티를 사용하며, 디자인 시스템/토큰 확정 전까지
+    최소한의 배경/폰트/카드 스타일만 정의합니다.
+*/
+
+:root {
+  /* slate-50 */
+  --background: 248 250 252;
+  /* slate-900 */
+  --foreground: 15 23 42;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: rgb(var(--background));
+  color: rgb(var(--foreground));
+}
+
+/* 카드 & 섹션 제목 유틸리티 (임시 Design Token 역할) */
+
+.app-card {
+  @apply rounded-xl border border-slate-200 bg-white/90 shadow-sm;
+}
+
+.app-section-title {
+  @apply text-sm font-semibold text-slate-900;
+}
+
+.app-section-subtitle {
+  @apply text-xs text-slate-500;
+}
